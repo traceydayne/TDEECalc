@@ -19,6 +19,7 @@ namespace TDEECalc.Models
         public string StartingBMI { get; set; }
         public string CurrentBMI { get; set; }
         public string TargetBMI { get; set; }
+        public bool CanEdit { get; set; } = true;
 
         public Loser()
         {

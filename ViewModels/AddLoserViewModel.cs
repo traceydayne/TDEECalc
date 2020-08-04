@@ -8,7 +8,7 @@ namespace TDEECalc.ViewModels
 {
     public class AddLoserViewModel
     {
-        [Required(ErrorMessage = "This field is required.")]
+        [Required (ErrorMessage ="This field is required.")]
         //[Range(18,99, ErrorMessage ="You must be between 18 and 99 years old for accurate results.")]
         public int Age { get; set; }
         public Sex Sex { get; set; }
@@ -22,6 +22,7 @@ namespace TDEECalc.ViewModels
         [Required]
         /*[Range(50, 80, ErrorMessage = "Sorry, your circumstances might be different than our calculator can predict for. Please ask your doctor for help calculating your TDEE.")]*/
         public int TargetWeight { get; set; }
+        public bool CanEdit { get; set; } = true;
         [Required]
         public ActivityLevel ActivityLevel { get; set; }
         public List<SelectListItem> SexTypes { get; set; } = new List<SelectListItem>
