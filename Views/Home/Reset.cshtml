@@ -1,40 +1,40 @@
 ﻿@using TDEECalc.ViewModels
 @model AddLoserViewModel
 
-<h1>Enter your information</h1>
+
 <div class="makeColumn">
+    <h4>Enter your information</h4>
     <form method="post" asp-controller="Home" asp-action="Index">
         <div>
             <label asp-for="Age">Age</label><br />
-            <input asp-for="Age" type="number" value="" />
-            <span asp-validation-for="Age"></span>
+            <input asp-for="Age" type="text" value="" placeholder="age" />
         </div>
-        <div class="form-group">
+        <div>
             <label asp-for="Sex">Sex</label><br />
             <select asp-for="Sex" asp-items="Model.SexTypes"></select>
         </div>
-        <div class="form-group">
+        <div>
             <label asp-for="Height">Height</label><br />
-            <input asp-for="Height" value="" type="text" />
+            <input asp-for="Height" value="" type="text" placeholder="height (inches)" />
         </div>
-        <div class="form-group">
+        <div>
             <label asp-for="StartingWeight">Starting Weight</label><br />
-            <input asp-for="StartingWeight" value="" type="text" />
+            <input asp-for="StartingWeight" value="" type="text" placeholder="starting weight (pounds)" />
         </div>
-        <div class="form-group">
+        <div>
             <label asp-for="CurrentWeight">Current Weight</label><br />
-            <input asp-for="CurrentWeight" value="" type="text" />
+            <input asp-for="CurrentWeight" value="" type="text" placeholder="current weight (pounds)" />
         </div>
-        <div class="form-group">
+        <div>
             <label asp-for="TargetWeight">Target Weight</label><br />
-            <input asp-for="TargetWeight" value="" type="text" />
+            <input asp-for="TargetWeight" value="" type="text" placeholder="target weight (pounds)" />
         </div>
-        <div class="form-group">
+        <div>
             <label asp-for="ActivityLevel">Activity Level</label><br />
             <select asp-for="ActivityLevel" asp-items="Model.ActivityTypes"></select>
         </div>
+        <br />
 
-        <input type="submit" value="Submit" />
+        <p><input type="submit" value="Submit" /></p>
     </form>
 </div>
-}
