@@ -16,6 +16,11 @@ namespace TDEECalc.Controllers
         private readonly ILogger<HomeController> _logger;
         public static AddLoserViewModel newLoser;
         public static List<AddLoserViewModel> loserList = new List<AddLoserViewModel>();
+        public static Dictionary<string, int>[] foodDictionary = {(new Dictionary<string, int>() {{ "servings of pasta", 200 }}),(new Dictionary<string, int>() { { "Krispy Kreme donuts", 190 } }),
+            (new Dictionary<string, int>() { { "pounds of spaghetti squash", 140 } }),
+            (new Dictionary<string, int>() { { "cans of Coca-Cola ", 140 } }),
+            (new Dictionary<string, int>() { { "McDoubles", 390 } }),
+            new Dictionary<string, int>() { { "slices of pepperoni pizza", 340 } }};
         
 
         public HomeController(ILogger<HomeController> logger)
@@ -33,6 +38,7 @@ namespace TDEECalc.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 newLoser = new AddLoserViewModel
                 {
                     Age = addLoserViewModel.Age,
@@ -42,11 +48,11 @@ namespace TDEECalc.Controllers
                     CurrentWeight = addLoserViewModel.CurrentWeight,
                     TargetWeight = addLoserViewModel.TargetWeight,
                     ActivityLevel = addLoserViewModel.ActivityLevel,
-                    BMR = addLoserViewModel.FindBMR(),
-                    TDEE = addLoserViewModel.FindTDEE(),
+                    CurrentTDEE = addLoserViewModel.FindTDEE(addLoserViewModel.CurrentWeight, addLoserViewModel.ActivityLevel),
+                    TargetTDEE = addLoserViewModel.FindTDEE(addLoserViewModel.TargetWeight, addLoserViewModel.ActivityLevel),
+                    StartingBMI = addLoserViewModel.FindBMI(addLoserViewModel.StartingWeight),
                     CurrentBMI = addLoserViewModel.FindBMI(addLoserViewModel.CurrentWeight),
-                    CanEdit = false
-
+                    TargetBMI = addLoserViewModel.FindBMI(addLoserViewModel.TargetWeight)
                 };
 
                 loserList.Add(newLoser);
@@ -73,7 +79,7 @@ namespace TDEECalc.Controllers
             return View(newLoser);
         }
 
-        public IActionResult Privacy()
+        public IActionResult AdditionalResources()
         {
             return View();
         }
@@ -82,6 +88,11 @@ namespace TDEECalc.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public void AddToList()
+        {
+            
         }
     }
 }

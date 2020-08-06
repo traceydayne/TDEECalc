@@ -7,40 +7,56 @@
 
 @if (TDEECalc.Controllers.HomeController.loserList.Count == 0)
 {
-    <h1>Enter your information</h1>
+
     <div class="makeColumn">
+        <h4>How to use this calculator</h4>
+        <ul>
+            <li>Enter your height in inches and your weight in pounds.</li>
+            <li>Your starting weight is the weight at the start of your journey. If you're unsure or just starting, use your current weight instead.</li>
+            <li><b>Activity level definitions:</b><ul>
+                <li><b>Sedentary:</b> you work from home and dedicate no time to physical activity</li>
+                <li><b>Slightly Active:</b> you work from home and spend less than 3 hours a week on dedicated physical activity or you work a job on your feet most of the time.</li>
+                <li><b>Lightly Active:</b> you spend more than 5 hours per week doing dedicated physical activity and do not have a strenuous job.</li>
+                <li><b>Moderately Active:</b> you work a physically strenuous job or spend at least 7-10 hours on dedicated physical activity</li>
+                <li><b>Highly Active: </b>you're an athlete spending 10+ hours per week training</li>
+                </ul></li>
+        </ul>
+    </div>
+    <div class="makeColumn"><br /></div>
+    <div class="makeColumn">
+        <h4>Enter your information</h4>
         <form method="post" asp-controller="Home" asp-action="Index">
             <div>
                 <label asp-for="Age">Age</label><br />
-                <input asp-for="Age" type="number" value="" />
-                <span asp-validation-for="Age"></span>
+                <input asp-for="Age" type="text" value="" placeholder="age" />
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="Sex">Sex</label><br />
                 <select asp-for="Sex" asp-items="Model.SexTypes"></select>
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="Height">Height</label><br />
-                <input asp-for="Height" value="" type="text" />
+                <input asp-for="Height" value="" type="text" placeholder="height (inches)" />
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="StartingWeight">Starting Weight</label><br />
-                <input asp-for="StartingWeight" value="" type="text" />
+                <input asp-for="StartingWeight" value="" type="text" placeholder="starting weight (pounds)" />
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="CurrentWeight">Current Weight</label><br />
-                <input asp-for="CurrentWeight" value="" type="text" />
+                <input asp-for="CurrentWeight" value="" type="text" placeholder="current weight (pounds)" />
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="TargetWeight">Target Weight</label><br />
-                <input asp-for="TargetWeight" value="" type="text" />
+                <input asp-for="TargetWeight" value="" type="text" placeholder="target weight (pounds)" />
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="ActivityLevel">Activity Level</label><br />
                 <select asp-for="ActivityLevel" asp-items="Model.ActivityTypes"></select>
             </div>
+            <br />
 
-            <input type="submit" value="Submit" />
+            <p><input type="submit" value="Submit" /></p>
         </form>
     </div>
 }
@@ -54,19 +70,34 @@
 
 @if (TDEECalc.Controllers.HomeController.loserList.Count > 0)
 {
-<div class="makeColumn">
-    <div>
+<div>
+    <div class="makeColumn">
+        <h4>Your information:</h4>
         <ul>
-            <li>Age: @Model.Age</li>
-            <li>Sex: @Model.Sex</li>
-            <li>Height: @Model.Height</li>
-            <li>Current Weight: @Model.CurrentWeight</li>
-            <li>Current TDEE: @Model.TDEE</li>
-            <li>Current BMI: @Model.CurrentBMI</li>
+            <li><b>Age: </b> @Model.Age</li>
+            <li><b>Height: </b>@Model.Height inches </li>
+            <li><b>Starting Weight: </b>@Model.StartingWeight pounds</li>
+            <li><b>Current Weight: </b>@Model.CurrentWeight pounds</li>
+            <li><b>Target Weight: </b>@Model.TargetWeight pounds</li>
+            <li><b>Sex: </b>@Model.Sex  </li>
+            <li><b>Activity Level: </b>@Model.ActivityLevel</li>
+        </ul><br />
+        <form asp-controller="Home" asp-action="Reset" method="post"><input type="submit" value="Start Over" /></form>
+        <br /><form asp-controller="Home" asp-action="Edit" method="post"><input type="submit" value="Edit information" /></form>
+    </div>
+    <div class="makeColumn">
+        <p>Your current TDEE is estimated at  <b>@Model.CurrentTDEE</b> calories per day. This is based on your current height, weight, and activity level. </p>
+        <p>Your estimated TDEE at your target weight is <b>@Model.TargetTDEE</b> calories per day assuming your activity level stays the same as now.</p><br />
+
+    </div>
+    <div class="makeColumn">
+        <ul>
+            <li> Your BMI at the start of your journey was @Model.StartingBMI<br /></li>
+            <li> Your current BMI is @Model.CurrentBMI<br /></li>
+            <li>Your BMI at your target weight would be @Model.TargetBMI<br /></li>
         </ul>
     </div>
-    <form asp-controller="Home" asp-action="Edit" method="post"><input type="submit" value="Edit information" /></form>
-    <form asp-controller="Home" asp-action="Reset" method="post"><input type="submit" value="Start Over" /></form>
+
 </div>
 }
 

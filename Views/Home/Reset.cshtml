@@ -1,38 +1,40 @@
 ﻿@using TDEECalc.ViewModels
-@model  AddLoserViewModel
+@model AddLoserViewModel
 
-    <h1>Edit your information</h1>
-    <div class="makeColumn">
-        <form method="post" asp-controller="Home" asp-action="Index">
-            <div>
-                <label asp-for="Age">Age</label>
-                <input asp-for="Age" type="number" value="@Model.Age" required oninvalid="this.setCustomValidity('Please enter your age')" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Sex">Sex</label>
-                <select asp-for="Sex" asp-items="Model.SexTypes"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Height">Height</label>
-                <input asp-for="Height" value="@Model.Height" type="text" />
-            </div>
-            <div class="form-group">
-                <label asp-for="StartingWeight">Starting Weight</label>
-                <input asp-for="StartingWeight" value="@Model.StartingWeight" type="text" />
-            </div>
-            <div class="form-group">
-                <label asp-for="CurrentWeight">Current Weight</label>
-                <input asp-for="CurrentWeight" value="@Model.CurrentWeight" type="text" />
-            </div>
-            <div class="form-group">
-                <label asp-for="TargetWeight">Target Weight</label>
-                <input asp-for="TargetWeight" value="@Model.TargetWeight" type="text" />
-            </div>
-            <div class="form-group">
-                <label asp-for="ActivityLevel">Activity Level</label>
-                <select asp-for="ActivityLevel" asp-items="Model.ActivityTypes"></select>
-            </div>
+<h1>Enter your information</h1>
+<div class="makeColumn">
+    <form method="post" asp-controller="Home" asp-action="Index">
+        <div>
+            <label asp-for="Age">Age</label><br />
+            <input asp-for="Age" type="number" value="" />
+            <span asp-validation-for="Age"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Sex">Sex</label><br />
+            <select asp-for="Sex" asp-items="Model.SexTypes"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Height">Height</label><br />
+            <input asp-for="Height" value="" type="text" />
+        </div>
+        <div class="form-group">
+            <label asp-for="StartingWeight">Starting Weight</label><br />
+            <input asp-for="StartingWeight" value="" type="text" />
+        </div>
+        <div class="form-group">
+            <label asp-for="CurrentWeight">Current Weight</label><br />
+            <input asp-for="CurrentWeight" value="" type="text" />
+        </div>
+        <div class="form-group">
+            <label asp-for="TargetWeight">Target Weight</label><br />
+            <input asp-for="TargetWeight" value="" type="text" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ActivityLevel">Activity Level</label><br />
+            <select asp-for="ActivityLevel" asp-items="Model.ActivityTypes"></select>
+        </div>
 
-            <input type="submit" value="Submit" />
-        </form>
-    </div>
+        <input type="submit" value="Submit" />
+    </form>
+</div>
+}

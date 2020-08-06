@@ -63,7 +63,7 @@ body {
   margin-bottom: 60px;
 }
 .footer {
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
@@ -71,7 +71,8 @@ body {
 }
 .makeColumn {
     float: left;
-    width: 33.33%;
+    width: 25%;
+    margin: 2%;
 }
 
 /* Clear floats after the columns */
@@ -80,10 +81,4 @@ body {
     display: table;
     clear: both;
 }
-.looksFlat {
-    background: rgba(0, 0, 0, 0);
-    border:hidden;
-    outline:none;
-    box-shadow: none;
-    border-color: white;
-}
+

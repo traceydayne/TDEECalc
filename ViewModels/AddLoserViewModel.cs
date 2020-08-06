@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,20 +10,15 @@ namespace TDEECalc.ViewModels
     public class AddLoserViewModel
     {
         [Required (ErrorMessage ="This field is required.")]
-        //[Range(18,99, ErrorMessage ="You must be between 18 and 99 years old for accurate results.")]
         public int Age { get; set; }
         public Sex Sex { get; set; }
         [Required]
-        /*[Range(50, 80, ErrorMessage ="Sorry, your circumstances might be different than our calculator can predict for. Please ask your doctor for help calculating your TDEE.")]*/
         public int Height { get; set; }
         public int StartingWeight { get; set; }
         [Required]
-        /*[Range(50, 80, ErrorMessage = "Sorry, your circumstances might be different than our calculator can predict for. Please ask your doctor for help calculating your TDEE.")]*/
         public int CurrentWeight { get; set; }
         [Required]
-        /*[Range(50, 80, ErrorMessage = "Sorry, your circumstances might be different than our calculator can predict for. Please ask your doctor for help calculating your TDEE.")]*/
         public int TargetWeight { get; set; }
-        public bool CanEdit { get; set; } = true;
         [Required]
         public ActivityLevel ActivityLevel { get; set; }
         public List<SelectListItem> SexTypes { get; set; } = new List<SelectListItem>
@@ -38,48 +34,49 @@ namespace TDEECalc.ViewModels
             new SelectListItem(ActivityLevel.ModeratelyActive.ToString(), ((int)ActivityLevel.ModeratelyActive).ToString()),
             new SelectListItem(ActivityLevel.HighlyActive.ToString(), ((int)ActivityLevel.HighlyActive).ToString())
         };
-        public int BMR { get; set; }
-        public int TDEE { get; set; }
+        public int StartingTDEE { get; set; }
+        public int CurrentTDEE { get; set; }
+        public int TargetTDEE { get; set; }
         public string StartingBMI { get; set; }
         public string CurrentBMI { get; set; }
         public string TargetBMI { get; set; }
-        public int FindBMR()
+        public int FindBMR(int weight)
         {
             int bmr;
 
             if (Sex == Sex.Male)
             {
-                bmr = (int)Math.Round(10 * (CurrentWeight / 2.2) + (6.25 * (Height * 2.54)) - (5 * Age) + 5);
+                bmr = (int)Math.Round(10 * (weight / 2.2) + (6.25 * (Height * 2.54)) - (5 * Age) + 5);
             }
             else
             {
-                bmr = (int)Math.Round(10 * (CurrentWeight / 2.2) + (6.25 * (Height * 2.54)) - (5 * Age) - 161);
+                bmr = (int)Math.Round(10 * (weight / 2.2) + (6.25 * (Height * 2.54)) - (5 * Age) - 161);
             }
             return bmr;
         }
 
-        public int FindTDEE()
+        public int FindTDEE(int weight, ActivityLevel activityLevel)
         {
-            int bmr = FindBMR();
+            int bmr = FindBMR(weight);
             int tdee = 0;
 
-            if (ActivityLevel == ActivityLevel.Sedentary)
+            if (activityLevel == ActivityLevel.Sedentary)
             {
                 tdee = (int)Math.Round(bmr * 1.15);
             }
-            else if (ActivityLevel == ActivityLevel.SlightlyActive)
+            else if (activityLevel == ActivityLevel.SlightlyActive)
             {
                 tdee = (int)Math.Round(bmr * 1.3);
             }
-            else if (ActivityLevel == ActivityLevel.LightlyActive)
+            else if (activityLevel == ActivityLevel.LightlyActive)
             {
                 tdee = (int)Math.Round(bmr * 1.425);
             }
-            else if (ActivityLevel == ActivityLevel.ModeratelyActive)
+            else if (activityLevel == ActivityLevel.ModeratelyActive)
             {
                 tdee = (int)Math.Round(bmr * 1.55);
             }
-            else if (ActivityLevel == ActivityLevel.HighlyActive)
+            else if (activityLevel == ActivityLevel.HighlyActive)
             {
                 tdee = (int)Math.Round(bmr * 1.75);
             }
@@ -93,19 +90,19 @@ namespace TDEECalc.ViewModels
             
             if (bmi < 18.5)
             {
-                return "A BMI of: " + bmi + " is considered underweight and may be unhealthy.";
+                return bmi + ". This is considered underweight and may be unhealthy.";
             }
             else if (bmi >= 18.5 && bmi < 25)
             {
-                return "A BMI of: " + bmi + " is considered a healthy weight.";
+                return bmi + ". This is within the range of a healthy weight.";
             }
             else if (bmi >= 25 && bmi < 29.9)
             {
-                return "A BMI of: " + bmi + " is considered overweight and may be unhealthy.";
+                return bmi + ". This is considered overweight and may be unhealthy.";
             }
             else if (bmi >= 30)
             {
-                return "A BMI of: " + bmi + " is considered obese and may be unhealthy.";
+                return bmi + ". This is considered obese and may be unhealthy.";
             }
             else
             {
