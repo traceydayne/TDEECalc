@@ -20,7 +20,8 @@ namespace TDEECalc.ViewModels
         [Required]
         public int TargetWeight { get; set; }
         [Required]
-        public ActivityLevel ActivityLevel { get; set; }
+        public ActivityLevel CurrentActivityLevel { get; set; }
+        public ActivityLevel TargetActivityLevel { get; set; }
         public List<SelectListItem> SexTypes { get; set; } = new List<SelectListItem>
         {
             new SelectListItem(Sex.Male.ToString(), ((int)Sex.Male).ToString()),

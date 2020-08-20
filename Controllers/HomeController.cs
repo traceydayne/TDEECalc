@@ -16,12 +16,6 @@ namespace TDEECalc.Controllers
         private readonly ILogger<HomeController> _logger;
         public static AddLoserViewModel newLoser;
         public static List<AddLoserViewModel> loserList = new List<AddLoserViewModel>();
-        public static Dictionary<string, int>[] foodDictionary = {(new Dictionary<string, int>() {{ "servings of pasta", 200 }}),(new Dictionary<string, int>() { { "Krispy Kreme donuts", 190 } }),
-            (new Dictionary<string, int>() { { "pounds of spaghetti squash", 140 } }),
-            (new Dictionary<string, int>() { { "cans of Coca-Cola ", 140 } }),
-            (new Dictionary<string, int>() { { "McDoubles", 390 } }),
-            new Dictionary<string, int>() { { "slices of pepperoni pizza", 340 } }};
-        
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -47,9 +41,10 @@ namespace TDEECalc.Controllers
                     StartingWeight = addLoserViewModel.StartingWeight,
                     CurrentWeight = addLoserViewModel.CurrentWeight,
                     TargetWeight = addLoserViewModel.TargetWeight,
-                    ActivityLevel = addLoserViewModel.ActivityLevel,
-                    CurrentTDEE = addLoserViewModel.FindTDEE(addLoserViewModel.CurrentWeight, addLoserViewModel.ActivityLevel),
-                    TargetTDEE = addLoserViewModel.FindTDEE(addLoserViewModel.TargetWeight, addLoserViewModel.ActivityLevel),
+                    CurrentActivityLevel = addLoserViewModel.CurrentActivityLevel,
+                    TargetActivityLevel = addLoserViewModel.TargetActivityLevel,
+                    CurrentTDEE = addLoserViewModel.FindTDEE(addLoserViewModel.CurrentWeight, addLoserViewModel.CurrentActivityLevel),
+                    TargetTDEE = addLoserViewModel.FindTDEE(addLoserViewModel.TargetWeight, addLoserViewModel.TargetActivityLevel),
                     StartingBMI = addLoserViewModel.FindBMI(addLoserViewModel.StartingWeight),
                     CurrentBMI = addLoserViewModel.FindBMI(addLoserViewModel.CurrentWeight),
                     TargetBMI = addLoserViewModel.FindBMI(addLoserViewModel.TargetWeight)

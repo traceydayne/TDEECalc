@@ -9,34 +9,36 @@
     <div class="makeColumn">
         <form method="post" asp-controller="Home" asp-action="Index">
             <div>
-                <label asp-for="Age">Age</label>
-                <input asp-for="Age" type="number" value="@HomeController.newLoser.Age" required oninvalid="this.setCustomValidity('Please enter your age')" />
+                <label asp-for="Age">Age</label><br />
+                <input asp-for="Age" type="number" value="@HomeController.newLoser.Age" />
             </div>
-            <div class="form-group">
-                <label asp-for="Sex">Sex</label>
+            <div>
+                <label asp-for="Sex">Sex</label><br />
                 <select asp-for="Sex" asp-items="Model.SexTypes"></select>
             </div>
-            <div class="form-group">
-                <label asp-for="Height">Height</label>
+            <div>
+                <label asp-for="Height">Height</label><br />
                 <input asp-for="Height" value="@HomeController.newLoser.Height" type="text" />
             </div>
-            <div class="form-group">
-                <label asp-for="StartingWeight">Starting Weight</label>
+            <div>
+                <label asp-for="StartingWeight">Starting Weight</label><br />
                 <input asp-for="StartingWeight" value="@HomeController.newLoser.StartingWeight" type="text" />
             </div>
-            <div class="form-group">
-                <label asp-for="CurrentWeight">Current Weight</label>
+            <div>
+                <label asp-for="CurrentWeight">Current Weight</label><br />
                 <input asp-for="CurrentWeight" value="@HomeController.newLoser.CurrentWeight" type="text" />
             </div>
-            <div class="form-group">
-                <label asp-for="TargetWeight">Target Weight</label>
+            <label asp-for="CurrentActivityLevel">Current Activity Level</label><br />
+            <select asp-for="CurrentActivityLevel" asp-items="Model.ActivityTypes"></select>
+            <div>
+                <label asp-for="TargetWeight">Target Weight</label><br />
                 <input asp-for="TargetWeight" value="@HomeController.newLoser.TargetWeight" type="text" />
             </div>
-            <div class="form-group">
-                <label asp-for="ActivityLevel">Activity Level</label>
-                <select asp-for="ActivityLevel" asp-items="Model.ActivityTypes"></select>
+            <div>
+                <label asp-for="TargetActivityLevel">Target Activity Level</label><br />
+                <select asp-for="TargetActivityLevel" asp-items="Model.ActivityTypes"></select>
             </div>
-
+            <br />
             <input type="submit" value="Submit" />
         </form>
     </div>

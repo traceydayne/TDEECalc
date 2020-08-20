@@ -26,12 +26,16 @@
             <input asp-for="CurrentWeight" value="" type="text" placeholder="current weight (pounds)" />
         </div>
         <div>
+            <label asp-for="CurrentActivityLevel">Current Activity Level</label><br />
+            <select asp-for="CurrentActivityLevel" asp-items="Model.ActivityTypes"></select>
+        </div>
+        <div>
             <label asp-for="TargetWeight">Target Weight</label><br />
             <input asp-for="TargetWeight" value="" type="text" placeholder="target weight (pounds)" />
         </div>
         <div>
-            <label asp-for="ActivityLevel">Activity Level</label><br />
-            <select asp-for="ActivityLevel" asp-items="Model.ActivityTypes"></select>
+            <label asp-for="TargetActivityLevel">Target Activity Level</label><br />
+            <select asp-for="TargetActivityLevel" asp-items="Model.ActivityTypes"></select>
         </div>
         <br />
 

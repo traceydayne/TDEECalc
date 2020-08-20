@@ -1,105 +1,160 @@
 ﻿@using TDEECalc.ViewModels
 
 @model AddLoserViewModel
-<script src="~/js/site.js"></script>
 <style href="~/css/site.css"></style>
+
 
 
 @if (TDEECalc.Controllers.HomeController.loserList.Count == 0)
 {
+<div class="row">
+    <div class="col">
+        <div>
+            <h4>Enter your information</h4>
+            <form method="post" asp-controller="Home" asp-action="Index">
+                <div>
+                    <label asp-for="Age">Age</label><br />
+                    <input asp-for="Age" type="text" value="" placeholder="age" />
+                </div>
+                <div>
+                    <label asp-for="Sex">Sex</label><br />
+                    <select asp-for="Sex" asp-items="Model.SexTypes"></select>
+                </div>
+                <div>
+                    <label asp-for="Height">Height</label><br />
+                    <input asp-for="Height" value="" type="text" placeholder="height (inches)" />
+                </div>
+                <div>
+                    <label asp-for="StartingWeight">Starting Weight</label><br />
+                    <input asp-for="StartingWeight" value="" type="text" placeholder="starting weight (pounds)" />
+                </div>
+                <div>
+                    <label asp-for="CurrentWeight">Current Weight</label><br />
+                    <input asp-for="CurrentWeight" value="" type="text" placeholder="current weight (pounds)" />
+                </div>
+                <div>
+                    <label asp-for="CurrentActivityLevel">Current Activity Level</label><br />
+                    <select asp-for="CurrentActivityLevel" asp-items="Model.ActivityTypes"></select>
+                </div>
+                <div>
+                    <label asp-for="TargetWeight">Target Weight</label><br />
+                    <input asp-for="TargetWeight" value="" type="text" placeholder="target weight (pounds)" />
+                </div>
+                <div>
+                    <label asp-for="TargetActivityLevel">Target Activity Level</label><br />
+                    <select asp-for="TargetActivityLevel" asp-items="Model.ActivityTypes"></select>
+                </div>
+                <br />
 
-    <div class="makeColumn">
+                <p><input type="submit" value="Submit" /></p>
+            </form>
+        </div>
+    </div>
+    <div class="col">
         <h4>How to use this calculator</h4>
         <ul>
             <li>Enter your height in inches and your weight in pounds.</li>
             <li>Your starting weight is the weight at the start of your journey. If you're unsure or just starting, use your current weight instead.</li>
-            <li><b>Activity level definitions:</b><ul>
-                <li><b>Sedentary:</b> you work from home and dedicate no time to physical activity</li>
-                <li><b>Slightly Active:</b> you work from home and spend less than 3 hours a week on dedicated physical activity or you work a job on your feet most of the time.</li>
-                <li><b>Lightly Active:</b> you spend more than 5 hours per week doing dedicated physical activity and do not have a strenuous job.</li>
-                <li><b>Moderately Active:</b> you work a physically strenuous job or spend at least 7-10 hours on dedicated physical activity</li>
-                <li><b>Highly Active: </b>you're an athlete spending 10+ hours per week training</li>
-                </ul></li>
+            <li>
+                <b>Activity level definitions:</b><ul>
+                    <li><b>Sedentary:</b> you work from home and dedicate no time to physical activity</li>
+                    <li><b>Slightly Active:</b> you work from home and spend less than 3 hours a week on dedicated physical activity or you work a job on your feet most of the time.</li>
+                    <li><b>Lightly Active:</b> you spend more than 5 hours per week doing dedicated physical activity and do not have a strenuous job.</li>
+                    <li><b>Moderately Active:</b> you work a physically strenuous job or spend at least 7-10 hours on dedicated physical activity</li>
+                    <li><b>Highly Active: </b>you're an athlete spending 10+ hours per week training</li>
+                </ul>
+            </li>
         </ul>
     </div>
-    <div class="makeColumn"><br /></div>
-    <div class="makeColumn">
-        <h4>Enter your information</h4>
-        <form method="post" asp-controller="Home" asp-action="Index">
-            <div>
-                <label asp-for="Age">Age</label><br />
-                <input asp-for="Age" type="text" value="" placeholder="age" />
-            </div>
-            <div>
-                <label asp-for="Sex">Sex</label><br />
-                <select asp-for="Sex" asp-items="Model.SexTypes"></select>
-            </div>
-            <div>
-                <label asp-for="Height">Height</label><br />
-                <input asp-for="Height" value="" type="text" placeholder="height (inches)" />
-            </div>
-            <div>
-                <label asp-for="StartingWeight">Starting Weight</label><br />
-                <input asp-for="StartingWeight" value="" type="text" placeholder="starting weight (pounds)" />
-            </div>
-            <div>
-                <label asp-for="CurrentWeight">Current Weight</label><br />
-                <input asp-for="CurrentWeight" value="" type="text" placeholder="current weight (pounds)" />
-            </div>
-            <div>
-                <label asp-for="TargetWeight">Target Weight</label><br />
-                <input asp-for="TargetWeight" value="" type="text" placeholder="target weight (pounds)" />
-            </div>
-            <div>
-                <label asp-for="ActivityLevel">Activity Level</label><br />
-                <select asp-for="ActivityLevel" asp-items="Model.ActivityTypes"></select>
-            </div>
-            <br />
-
-            <p><input type="submit" value="Submit" /></p>
-        </form>
-    </div>
+</div>
 }
 
-
-
-
-
-
+@*form columns done*@
 
 
 @if (TDEECalc.Controllers.HomeController.loserList.Count > 0)
 {
+
 <div>
-    <div class="makeColumn">
+    <div class="col">
         <h4>Your information:</h4>
         <ul>
             <li><b>Age: </b> @Model.Age</li>
             <li><b>Height: </b>@Model.Height inches </li>
             <li><b>Starting Weight: </b>@Model.StartingWeight pounds</li>
             <li><b>Current Weight: </b>@Model.CurrentWeight pounds</li>
+            <li><b>Current Activity Level: </b>@Model.CurrentActivityLevel</li>
             <li><b>Target Weight: </b>@Model.TargetWeight pounds</li>
+            <li><b>Target Activity Level: </b>@Model.TargetActivityLevel</li>
             <li><b>Sex: </b>@Model.Sex  </li>
-            <li><b>Activity Level: </b>@Model.ActivityLevel</li>
+
         </ul><br />
         <form asp-controller="Home" asp-action="Reset" method="post"><input type="submit" value="Start Over" /></form>
-        <br /><form asp-controller="Home" asp-action="Edit" method="post"><input type="submit" value="Edit information" /></form>
-    </div>
-    <div class="makeColumn">
-        <p>Your current TDEE is estimated at  <b>@Model.CurrentTDEE</b> calories per day. This is based on your current height, weight, and activity level. </p>
-        <p>Your estimated TDEE at your target weight is <b>@Model.TargetTDEE</b> calories per day assuming your activity level stays the same as now.</p><br />
-
-    </div>
-    <div class="makeColumn">
-        <ul>
-            <li> Your BMI at the start of your journey was @Model.StartingBMI<br /></li>
-            <li> Your current BMI is @Model.CurrentBMI<br /></li>
-            <li>Your BMI at your target weight would be @Model.TargetBMI<br /></li>
-        </ul>
+        <br /><form asp-controller="Home" asp-action="Edit" method="post"><input type="submit" value="Edit information" /></form><br />
+        <div>
+            <p>Your current TDEE is estimated at  <b>@Model.CurrentTDEE</b> calories per day. This is based on your current height, weight, and activity level. </p>
+            <p>Your estimated TDEE at your target weight is <b>@Model.TargetTDEE</b> calories per day based on your target activity level.</p>
+        </div>
     </div>
 
+    @if (TDEECalc.Controllers.HomeController.loserList.Count > 0)
+    {
+        <script src="~/js/site.js"></script>
+        
+        if (Model.TargetWeight == Model.CurrentWeight)
+        {
+            if (Model.CurrentTDEE == Model.TargetTDEE)
+            {
+                <div class="col">
+                    <h3>Congratulations, you reached your goal!</h3>
+                </div>
+            }
+            else if (Model.CurrentTDEE < Model.TargetTDEE)
+            {
+                <button onclick="showMeAnExample(@Model.TargetTDEE, @Model.CurrentTDEE)"> Tell Me More!</button> <br />
+                <p id="moreInfo"></p>
+            }
+        }
+        else
+        {
+            <div class="col">
+
+                <div>
+                    <div>
+                        <table>
+                            <tr>
+                                <td><button onclick="slowProgress(@Model.CurrentWeight, @Model.TargetWeight, @Model.CurrentTDEE)">slowly</button></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><button onclick="moderateProgress(@Model.CurrentWeight, @Model.TargetWeight, @Model.CurrentTDEE)">somewhat quickly</button></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><button onclick="fastProgress(@Model.CurrentWeight, @Model.TargetWeight, @Model.CurrentTDEE)">very quickly</button></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <p id="progress"></p><br />
+                </div>
+            </div>
+        }
+            <div class="col">
+                <ul>
+                    <li> Your BMI at the start of your journey was @Model.StartingBMI<br /></li>
+                    <li> Your current BMI is @Model.CurrentBMI<br /></li>
+                    <li>Your BMI at your target weight would be @Model.TargetBMI<br /></li>
+                </ul>
+            </div>
+        }
 </div>
 }
+
+
 
 
 
