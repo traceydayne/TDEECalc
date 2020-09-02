@@ -16,6 +16,7 @@ namespace TDEECalc.Controllers
         private readonly ILogger<HomeController> _logger;
         public static AddLoserViewModel newLoser;
         public static List<AddLoserViewModel> loserList = new List<AddLoserViewModel>();
+        public static string customDaysToGoal = "";
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -84,10 +85,34 @@ namespace TDEECalc.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        public void AddToList()
+        [HttpPost]
+        public IActionResult CustomCalories(AddLoserViewModel loser)
         {
-            
+            newLoser.CustomCals = loser.CustomCals;
+
+            int timeToTarget = 0;
+
+            int weightDif = 0;
+            int calorieDif = newLoser.CurrentTDEE - newLoser.CustomCals;
+
+            if (newLoser.CurrentWeight > newLoser.TargetWeight && calorieDif > 0)
+            {
+                weightDif = newLoser.CurrentWeight - newLoser.TargetWeight;
+                timeToTarget = (int)weightDif * 3500 / (newLoser.CurrentTDEE - newLoser.CustomCals);
+                customDaysToGoal = "If you ate " + newLoser.CustomCals + " calories every day, it would take you " + timeToTarget + " days to reach your goal.";
+            }
+            else if (newLoser.TargetWeight > newLoser.CurrentWeight && calorieDif < 0)
+            {
+                weightDif = newLoser.TargetWeight - newLoser.CurrentWeight;
+                timeToTarget = (int)weightDif * 3500 / (newLoser.CustomCals - newLoser.CurrentTDEE);
+                customDaysToGoal = "If you ate " + newLoser.CustomCals + " calories every day, it would take you " + timeToTarget + " days to reach your goal.";
+            }
+            else
+            {
+                customDaysToGoal = "Whoops! Looks like you can't reach your goal with that caloric intake. Try again.";
+            }            
+            return View(newLoser);
         }
+
     }
 }

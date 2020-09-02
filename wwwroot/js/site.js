@@ -44,11 +44,13 @@ function fastProgress(currentWeight, targetWeight, currentTdee) {
 }
 
 function showMeAnExample(targetTdee, currentTdee) {
-    let tdeeDif = targetTdee - currentTdee;
+    let tdeeDif = Math.abs(targetTdee - currentTdee);
+    
     let display = [];
 
-    let calsArr = [200, 190, 140, 140, 390, 340];
-    let foodsArr = ["servings of pasta", "Krispy Kreme glazed donuts", "pounds of spaghetti squash", "cans of Coca-Cola", "McDouble cheeseburgers", "slices of pepperoni pizza"];
+    let calsArr = [200, 190, 140, 140, 390, 340, 150, 60, 70, 45, 47, 72, 80, 210];
+    let foodsArr = ["servings of pasta", "Krispy Kreme glazed donuts", "pounds of spaghetti squash", "cans of Coca-Cola", "McDouble cheeseburgers", "slices of pepperoni pizza", "hot dogs", "chicken nuggets", "Oreos", "slices of bacon", "ounces of avocado",
+        "hard-boiled eggs", "string cheese sticks", "cups of chocolate milk"];
 
     let randIndex = Math.floor(Math.random() * calsArr.length);
     let rounding = tdeeDif / calsArr[randIndex];
@@ -58,6 +60,8 @@ function showMeAnExample(targetTdee, currentTdee) {
     let p = document.getElementById("moreInfo");
     p.innerHTML = `The difference between your current and your target TDEE is approximately <b>${tdeeDif}</b> calories. This difference is approximately ${display[0]} ${display[1]}.`;
 }
+
+
 
 
 

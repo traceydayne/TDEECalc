@@ -69,20 +69,20 @@ body {
   white-space: nowrap;
   /*line-height: 60px;*/ /* Vertically center the text there */
 }
+.row {
+    display: flex;
+}
+
 .column {
-    float: left;
+    flex: 50%;
+    margin-right: 12px;
+    padding-right: 12px;
 }
 
-.left, .right {
-    width: 40%;
+button {
+    border: 1px;
 }
 
-.middle {
-    width: 50%;
-}
-
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
+p {
+    font-size: smaller;
 }

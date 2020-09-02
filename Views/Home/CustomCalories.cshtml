@@ -1,0 +1,68 @@
+﻿@using TDEECalc.ViewModels
+
+@model AddLoserViewModel
+
+@if (TDEECalc.Controllers.HomeController.loserList.Count > 0)
+{
+    <script src="~/js/site.js"></script>
+    <div class="row">
+        <div class="col">
+            <h4>Your information:</h4>
+            <ul>
+                <li><b>Age: </b> @Model.Age</li>
+                <li><b>Height: </b>@Model.Height inches </li>
+                <li><b>Starting Weight: </b>@Model.StartingWeight pounds</li>
+                <li><b>Current Weight: </b>@Model.CurrentWeight pounds</li>
+                <li><b>Current Activity Level: </b>@Model.CurrentActivityLevel</li>
+                <li><b>Target Weight: </b>@Model.TargetWeight pounds</li>
+                <li><b>Target Activity Level: </b>@Model.TargetActivityLevel</li>
+                <li><b>Sex: </b>@Model.Sex  </li>
+
+            </ul><br />
+            <form asp-controller="Home" asp-action="Reset" method="post"><input type="submit" value="Start Over" /></form>
+            <br /><form asp-controller="Home" asp-action="Edit" method="post"><input type="submit" value="Edit information" /></form><br />
+            
+        </div>
+            <div class="col">
+                <div>
+                    <h4>How to get to your goal from here!</h4>
+                    <div>
+                        <p>Use the buttons below to see how long it will take for you to reach your goal or enter a custom number of calories!</p>
+                        <button onclick="slowProgress(@Model.CurrentWeight, @Model.TargetWeight, @Model.CurrentTDEE)">slowly</button>
+                        <button onclick="moderateProgress(@Model.CurrentWeight, @Model.TargetWeight, @Model.CurrentTDEE)">somewhat quickly</button>
+                        <button onclick="fastProgress(@Model.CurrentWeight, @Model.TargetWeight, @Model.CurrentTDEE)">very quickly</button><br />
+
+                        <br /><form asp-controller="Home" asp-action="CustomCalories" method="post">
+                            <label asp-for="CustomCals">How many calories do you plan to eat?</label>
+                            <input asp-for="CustomCals" type="text" placeholder="daily calories" value="" />
+                            <input type="submit" />
+                        </form>
+
+                        <p id="progress"></p><br />
+                        @if (!String.IsNullOrEmpty(TDEECalc.Controllers.HomeController.customDaysToGoal))
+                        {
+                            <p>@TDEECalc.Controllers.HomeController.customDaysToGoal</p>
+                        }
+
+                    </div>
+                    <div>
+                        <div>
+                            <p>Your current TDEE is estimated at  <b>@Model.CurrentTDEE</b> calories per day. This is based on your current height, weight, and activity level. </p>
+                            <p>Your estimated TDEE at your target weight is <b>@Model.TargetTDEE</b> calories per day based on your target activity level.</p>
+                        </div>
+                        <p>A small change in your diet can lead you to your goal!</p>
+                        <button onclick="showMeAnExample(@Model.TargetTDEE, @Model.CurrentTDEE)">Tell me more!</button>
+                        <p id="moreInfo"></p>
+                    </div>
+                </div>
+            </div>
+        <div class="col">
+            <ul>
+                <li> Your BMI at the start of your journey was @Model.StartingBMI<br /></li>
+                <li> Your current BMI is @Model.CurrentBMI<br /></li>
+                <li>Your BMI at your target weight would be @Model.TargetBMI<br /></li>
+            </ul>
+        </div>
+    </div>
+    
+}

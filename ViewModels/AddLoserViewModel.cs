@@ -41,6 +41,7 @@ namespace TDEECalc.ViewModels
         public string StartingBMI { get; set; }
         public string CurrentBMI { get; set; }
         public string TargetBMI { get; set; }
+        public int CustomCals { get; set; }
         public int FindBMR(int weight)
         {
             int bmr;
