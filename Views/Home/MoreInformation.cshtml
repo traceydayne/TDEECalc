@@ -1,6 +1,26 @@
-﻿
+﻿@using TDEECalc.Controllers;
+@using TDEECalc.ViewModels;
+@model AddLoserViewModel
+
+@if (HomeController.displayDb == true)
+{
+    <p>
+        The difference between your current TDEE of
+        <b>@Model.CurrentTDEE</b> and your target TDEE of
+        <b>@Model.TargetTDEE</b> is
+        about
+        <b>@ViewBag.calDiff</b> calories per day. This equates to about
+    </p>
+    
+    foreach (var food in ViewBag.foodList)
+    {
+        double calNum = Math.Round(ViewBag.calDiff / food.FoodCals, 2);
+        <li>@calNum @food.FoodName</li>
+    }
+}
 <style href="~/css/site.css"></style>
-<h2>What does TDEE mean?</h2><br />
+<h2>What does TDEE mean?</h2>
+<br />
 
 <div class="row">
     <div class="column">

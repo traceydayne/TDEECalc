@@ -61,6 +61,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  background-color: #bfebee;
 }
 .footer {
   position: absolute;
@@ -79,10 +80,5 @@ body {
     padding-right: 12px;
 }
 
-button {
-    border: 1px;
-}
 
-p {
-    font-size: smaller;
-}
+

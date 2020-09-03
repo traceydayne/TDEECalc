@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TDEECalc.Models;
 using TDEECalc.ViewModels;
+using TDEECalc.Data;
 
 namespace TDEECalc.Controllers
 {
@@ -17,10 +18,13 @@ namespace TDEECalc.Controllers
         public static AddLoserViewModel newLoser;
         public static List<AddLoserViewModel> loserList = new List<AddLoserViewModel>();
         public static string customDaysToGoal = "";
+        public static bool displayDb = false;
+        private FoodDbContext context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, FoodDbContext dbContext)
         {
             _logger = logger;
+            context = dbContext;
         }
 
         public IActionResult Index()
@@ -74,10 +78,25 @@ namespace TDEECalc.Controllers
             
             return View(newLoser);
         }
-
+        [HttpGet]
         public IActionResult AdditionalResources()
         {
             return View();
+        }
+        [HttpGet]
+        public IActionResult MoreInformation()
+        {
+            displayDb = false;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult MoreInformation(AddLoserViewModel addLoserViewModel)
+        {
+            displayDb = true;
+            List < Food > foods = context.Foods.ToList();
+            ViewBag.foodList = foods;
+            ViewBag.calDiff = (double)Math.Abs(newLoser.CurrentTDEE - newLoser.TargetTDEE);
+            return View(newLoser);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

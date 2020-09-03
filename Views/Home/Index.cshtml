@@ -126,30 +126,38 @@
                             <label asp-for="CustomCals">How many calories do you plan to eat?</label>
                             <input asp-for="CustomCals" type="text" placeholder="daily calories" value="" />
                             <input type="submit" />
-                        </form>
+                        </form><br />
 
                         <p id="progress"></p><br />
+                        @if (!String.IsNullOrEmpty(TDEECalc.Controllers.HomeController.customDaysToGoal))
+                        {
+                            <p>@TDEECalc.Controllers.HomeController.customDaysToGoal</p>
+                        }
 
                     </div>
-                    <div>
-                        <div>
-                            <p>Your current TDEE is estimated at  <b>@Model.CurrentTDEE</b> calories per day. This is based on your current height, weight, and activity level. </p>
-                            <p>Your estimated TDEE at your target weight is <b>@Model.TargetTDEE</b> calories per day based on your target activity level.</p>
-                        </div>
-                        <p>A small change in your diet can lead you to your goal!</p>
-                        <button onclick="showMeAnExample(@Model.TargetTDEE, @Model.CurrentTDEE)">Tell me more!</button>
-                        <p id="moreInfo"></p>
-                    </div>
+
                 </div>
             </div>
-        }
-        <div>
-            <ul>
-                <li> Your BMI at the start of your journey was @Model.StartingBMI<br /></li>
-                <li> Your current BMI is @Model.CurrentBMI<br /></li>
-                <li>Your BMI at your target weight would be @Model.TargetBMI<br /></li>
-            </ul>
-        </div>
+                }
+            <div class="col">
+                <div>
+                    <div>
+                        <p>Your current TDEE is estimated at  <b>@Model.CurrentTDEE</b> calories per day. This is based on your current height, weight, and activity level. </p>
+                        <p>Your estimated TDEE at your target weight is <b>@Model.TargetTDEE</b> calories per day based on your target activity level.</p>
+                    </div>
+                    <p>A small change in your diet can lead you to your goal!</p>
+                    <form method="post" asp-action="MoreInformation" asp-controller="Home">
+                        <input type="submit" value="Tell me more!" />
+                    </form>
+                    @*<button onclick="showMeAnExample(@Model.TargetTDEE, @Model.CurrentTDEE)">Tell me more!</button><br />
+                    <p id="moreInfo"></p>*@
+                </div>
+                <ul>
+                    <li> Your BMI at the start of your journey was @Model.StartingBMI<br /></li>
+                    <li> Your current BMI is @Model.CurrentBMI<br /></li>
+                    <li>Your BMI at your target weight would be @Model.TargetBMI<br /></li>
+                </ul>
+            </div>
 
     </div>
 }
